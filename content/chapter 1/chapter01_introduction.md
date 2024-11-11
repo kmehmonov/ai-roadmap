@@ -1,3 +1,10 @@
+<style>
+    html {
+        padding: 0 50px;
+        box-sizing: border-box;
+    }
+</style>
+
 # Chapter 1 - What is Machine Learning?
 
 1. Definition and Overview of Machine Learning.
@@ -11,13 +18,13 @@ Machine Learning is the science of programming computers so they can learn from 
 
 Traditional programming involves us writing rules, expressed in a programming language, that act on data and give us answers. This applies just about everywhere that something can be programmed with code. Consider a financial services scenario. You have data about a company’s stock, such as its current price and current earnings. You can calculate a valuable ratio called the P/E (for price divided by earnings) with code.
 
-<img src="images/chapter1//financial_service_scenario.png" 
+<img src="images/financial_service_scenario.png" 
     width=450 style="object-fit: contain"
 />
 
 Your code reads the price, reads the earnings, and returns a value that is the former divided by the latter. If I were to try to sum up traditional programming like this into a single diagram, it might look like this.
 
-<img src="images/chapter1/traditional_programming.png"
+<img src="images/traditional_programming.png"
     width=550 style="object-fit: contain" />
 
 As you can see, you have rules expressed in a programming language. These rules act on data, and the result is answers.
@@ -30,7 +37,7 @@ These limitations highlight why machine learning is often the preferred approach
 
 We can consider this high-level diagram to define machine learning.
 
-<img src="images/chapter1/ml_programming.png"
+<img src="images/ml_programming.png"
     width=550 style="object-fit: contain" />
 
 So what are the implications of this? Well, now instead of us trying to figure out what the rules are, we get lots of data about our scenario, we label that data, and the computer can figure out what the rules are that make one piece of data match a particular label and another piece of data match a different label.
@@ -43,7 +50,7 @@ Consider how you would write a spam filter using traditional programming techniq
 2. You would write a detection algorithm for each of the patterns that you noticed, and your program would flag emails as spam if a number of these patterns were detected.
 3. You would test your program and repeat steps 1 and 2 until it was good enough to launch.
 
-<img src="images/chapter1/traditional_spam_filter_flow.png" 
+<img src="images/traditional_spam_filter_flow.png" 
     width=400 style="object-fit: contain" />
 
 Since the problem is difficult, your program will likely become a long list of complex rules—pretty hard to maintain.
@@ -57,7 +64,7 @@ They might start writing “For U” instead. A spam filter using traditional pr
 In contrast, a spam filter based on Machine Learning techniques
 automatically notices that “For U” has become unusually frequent in spam flagged by users, and it starts flagging them without your intervention.
 
-<img src="images/chapter1/ml_spam_filter_flow.png" 
+<img src="images/ml_spam_filter_flow.png" 
     height=500 style="object-fit: contain" />
 
 Another area where Machine Learning shines is for problems that either are too complex for traditional approaches or have no known algorithm. For example, consider speech recognition. Say you want to start simple and write a program capable of distinguishing the words “one” and “two.” You might notice that the word “two” starts with a high-pitch sound (“T”), so you could hardcode an algorithm that measures high-pitch sound intensity and use that to distinguish ones and twos—but obviously this technique will not scale to thousands of words spoken by millions of very different people in noisy environments and in dozens of languages. The best solution (at least today) is to write an algorithm that learns by itself, given many example recordings for each word.
@@ -88,39 +95,39 @@ ML systems can be classified according to the amount and type of supervision the
 
 In _supervised learning_, the training set you feed to the algorithm includes the desired solutions, called _labels_.
 
-<img src="images/chapter1/supervised_learning_spam_detection.png" 
+<img src="images/supervised_learning_spam_detection.png" 
     height=200 style="object-fit: contain" />
 
 A typical supervised learning task is classification. The spam filter is a good example of this: it is trained with many example emails along with their class (spam or ham), and it must learn how to classify new emails.
 
 Another typical task is to predict a target numeric value, such as the price of a car, given a set of features (mileage, age, brand, etc.). This sort of task is called regression. To train the system, you need to give it many examples of cars, including both their features and their targets (i.e., their prices).
 
-<img src="images/chapter1/supervised_learning_predict_value.png" 
+<img src="images/supervised_learning_predict_value.png" 
     height=300 style="object-fit: contain" />
 
 #### Unsupervised learning
 
 In _unsupervised learning_, as you might guess, the training data is unlabeled. The system tries to learn without a teacher.
 
-<img src="images/chapter1/unsupervised_learning_example1.png" 
+<img src="images/unsupervised_learning_example1.png" 
     height=300 style="object-fit: contain" />
 
 For example, say you have a lot of data about your blog’s visitors. You may want to run a clustering algorithm to try to detect groups of similar visitors. At no point do you tell the algorithm which group a visitor belongs to: it finds those connections without your help. For example, it might notice that 40% of your visitors are teenagers who love comic books and generally read your blog after school, while 20% are adults who enjoy sci-fi and who visit during the weekends. If you use a hierarchical clustering algorithm, it may also subdivide each group into smaller groups.
 This may help you target your posts for each group.
 
-<img src="images/chapter1/unsupervised_learning_example2.png" 
+<img src="images/unsupervised_learning_example2.png" 
     height=300 style="object-fit: contain" />
 
 _Visualization algorithms_ are also good examples of unsupervised learning: you feed them a lot of complex and unlabeled data, and they output a 2D or 3D representation of your data that can easily be plotted. These algorithms try to preserve as much structure as they can (e.g., trying to keep separate clusters in the input space from overlapping in the visualization) so that you can understand how the data is organized and perhaps identify unsuspected patterns.
 
-<img src="images/chapter1/example_of_t_sne.png" 
+<img src="images/example_of_t_sne.png" 
     height=400 style="object-fit: contain" />
 
 #### Semi-supervised learning
 
 Since labeling data is usually time-consuming and costly, you will often have plenty of unlabeled instances, and few labeled instances. Some algorithms can deal with data that’s partially labeled. This is called _semi-supervised learning_.
 
-<img src="images/chapter1/semi_supervised_learning_example1.png" 
+<img src="images/semi_supervised_learning_example1.png" 
     height=300 style="object-fit: contain" />
 
 Some photo-hosting services, such as Google Photos, are good examples of this. Once you upload all your family photos to the service, it automatically recognizes that the same person A shows up in photos 1, 5, and 11, while another person B shows up in photos 2, 5, and 7. This is the unsupervised part of the algorithm (clustering). Now all the system needs is for you to tell it who these people are. Just add one label per person and it is able to name everyone in every photo, which is useful for searching photos.
@@ -132,7 +139,7 @@ Most semi-supervised learning algorithms are combinations of unsupervised and su
 Another approach to Machine Learning involves actually generating a fully labeled dataset from a fully unlabeled one. Again, once the whole dataset it labeled, any supervised learning algorithm can be used. This approach is called _self-supervised learning_.
 
 For example, if you have a large dataset of unlabeled images, you can randomly mask a small part of each image and then train a model to recover the original image. During training, the masked images are used as the inputs to the model, and the original images are used as the labels.
-<img src="images/chapter1/self_supervised_learning_example1.png" 
+<img src="images/self_supervised_learning_example1.png" 
     height=300 style="object-fit: contain" />
 
 The resulting model may be quite useful in itself, for example to repair damaged images or to erase unwanted objects from pictures. But more often than not, a model trained using self-supervised learning is not the final goal. You usually want to tweak and fine-tune the model for a slightly different task. One that you actually care about.
@@ -142,7 +149,7 @@ For example, suppose that what you really want is to have a pet classification m
 #### Reinforcement Learning
 Reinforcement Learning is a very different beast. The learning system, called an agent in this context, can observe the environment, select and perform actions, and get rewards in return (or penalties in the form of negative rewards). It must then learn by itself what is the best strategy, called a policy, to get the most reward over time. A policy defines what action the agent should choose when it is in a given situation.
 
-<img src="images/chapter1/reinforcement_learning_example1.png" 
+<img src="images/reinforcement_learning_example1.png" 
     height=400 style="object-fit: contain" />
 
 For example, many robots implement Reinforcement Learning algorithms to learn how to walk. DeepMind’s AlphaGo program is also a good example of Reinforcement Learning: it made the headlines in May 2017 when it beat Ke Jie, the number one ranked player in the world at the time, at the game of Go. It learned its winning policy by analyzing millions of games, and then playing many games against itself. Note that learning was turned off during the games against the champion; AlphaGo was just applying the policy it had learned. As we will see in the next section, this is called offline learning.

@@ -1,4 +1,26 @@
+### Machine Learning Algorithms For Content
 
+- **Linear Regression**
+- **Logistic Regression**
+- **Gradient Descend**
+- **Decision Tree**
+- **Support Vector Machines**
+- **Random Forest**
+- **K-Fold Cross Validation**
+- **K Means Clustering Algorithm**
+- **Naive Bayes Classifier Algorithm**
+- **L1 and L2 Regularization**
+- **K-Nearest Neighbour Classification**
+- **Principal Component Analysis**
+- **Ensemble Learning**
+- **Outlier Detection**
+- **Scaling**
+- **Hyperparameter Tuning**
+- **Save the model**
+
+---
+
+### Machine Learning Algorithms
 ### **1. Supervised Learning Algorithms**
 These algorithms are trained on labeled data, meaning that each training example is paired with an output label.
 
