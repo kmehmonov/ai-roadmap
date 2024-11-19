@@ -1,7 +1,7 @@
 # ai-roadmap
 
 
-<hr />
+---
 
 ## Mathematics
 
@@ -117,7 +117,7 @@
 - **Probabilistic Modeling**: Employ statistics and probability to quantify uncertainty and make predictions.
 - **Inference and Decision Making**: Utilize graph theory, logic, and information theory for modeling complex AI systems like knowledge graphs and decision processes.
 
-<hr />
+---
 
 ## Statistics
 
@@ -261,7 +261,7 @@
    - "An Introduction to Statistical Learning" by James et al.
 
 
-<hr />
+---
 
 ## Python
 
