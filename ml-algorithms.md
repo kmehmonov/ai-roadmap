@@ -1,5 +1,9 @@
 ### Machine Learning Algorithms For Content
 
+- **Preprocessing**
+
+  - Scaling
+  - Normalization
 - **Linear Regression**
 - **Logistic Regression**
 - **Gradient Descend**
@@ -14,15 +18,12 @@
 - **Principal Component Analysis**
 - **Ensemble Learning**
 - **Outlier Detection**
-- **Scaling**
 - **Hyperparameter Tuning**
 - **Save the model**
 
 ---
 
-Data transformation is a critical step in preparing datasets for machine learning applications. It involves converting raw data into a suitable format for training and testing models. Below is a comprehensive list of data transformation algorithms and techniques categorized by their use cases:
-
----
+Comprehensive list of data transformation algorithms:
 
 ### **1. Scaling and Normalization**
 
