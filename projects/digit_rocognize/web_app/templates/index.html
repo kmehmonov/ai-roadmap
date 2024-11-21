@@ -12,8 +12,15 @@
     </style>
   </head>
   <body>
-    <canvas id="canvas" width="28" height="28"></canvas>
-    <button id="sendDataButton">Send Image Data</button>
+    <div>
+      <canvas id="canvas" width="300" height="300"></canvas>
+      <button id="clear">Clear</button>
+      <button id="sendDataButton">Analyze</button>
+    </div>
+    <div>
+      <p id="digit"></p>
+      <p id="score"></p>
+    </div>
 
     <script src="{{url_for('static', filename='script.js')}}"></script>
   </body>

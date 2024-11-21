@@ -4,12 +4,15 @@ from PIL import Image
 import io
 import base64
 import numpy as np
-from tensorflow.keras.models import load_model
+import tensorflow as tf
+from pathlib import Path
 
 app = Flask(__name__)
 CORS(app)
 
-model = load_model(r"D:\Python\Projects\ml\digit_rocognize\models\mymodel.keras")
+models_path = Path(__file__).resolve().parent.parent / "models"
+
+model = tf.keras.models.load_model(models_path / "mymodel.keras")
 
 
 @app.route("/process-image", methods=["POST"])
@@ -21,25 +24,28 @@ def process_image():
 
         image_data = base64.b64decode(data.split(",")[1])
         image = Image.open(io.BytesIO(image_data))
-        # image = image.convert('LA') # 'LA' mode is grayscale with Aplha
-        image_array = np.array(image)
-        # print(image_array)
-        np.save("img_data", image_array)
+        # image = image.convert('L') # 'L' mode is grayscale
+        image.save("images/digit.png")
 
-        image.save("myimage.png")
-        height, widht, *_ = image_array.shape
+        image = image.resize((28, 28))
+        image_array = np.array(image)
+
+        np.save("img_data", image_array)
 
         image_array = (image_array @ np.array([0.2989, 0.5870, 0.1140, 0])).round()
         image_array = image_array / 255
+
         prediction = model.predict(image_array.reshape(1, 28, 28))
+        digit = prediction.argmax()
+        score = prediction.max()
 
         print("Prediction:", prediction)
-        print(prediction.argmax(), prediction.max())
+        print(digit, score)
 
         response = {
             "message": "Image received successfully",
-            "height": height,
-            "width": widht,
+            "digit": int(digit),
+            "score": float(score),
         }
         return jsonify(response)
     except Exception as e:
