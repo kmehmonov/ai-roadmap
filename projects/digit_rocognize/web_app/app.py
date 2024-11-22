@@ -27,7 +27,7 @@ def process_image():
         # image = image.convert('L') # 'L' mode is grayscale
         image.save("images/digit.png")
 
-        image = image.resize((28, 28))
+        # image = image.resize((28, 28))
         image_array = np.array(image)
 
         np.save("img_data", image_array)

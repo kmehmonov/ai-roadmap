@@ -28,7 +28,7 @@ canvas.addEventListener('mouseup', () => (isDrawing = false));
 canvas.addEventListener('mouseout', () => (isDrawing = false));
 
 // Configure pen properties
-ctx.lineWidth = 8; // Pen width
+ctx.lineWidth = 1; // Pen width
 ctx.lineCap = 'round'; // Smooth edges
 ctx.strokeStyle = 'blue'; // Pen color
 
