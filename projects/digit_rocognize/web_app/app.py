@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from PIL import Image
+from PIL import Image, ImageOps
 import io
 import base64
 import numpy as np
@@ -11,44 +11,47 @@ app = Flask(__name__)
 CORS(app)
 
 models_path = Path(__file__).resolve().parent.parent / "models"
+model = tf.keras.models.load_model(models_path / "first.keras")
 
-model = tf.keras.models.load_model(models_path / "mymodel.keras")
+
+def base64_to_img_data(base64_str: str):
+    image_data = base64.b64decode(base64_str.split(",")[1])
+    with Image.open(io.BytesIO(image_data)) as org_image:
+        org_image.save("images/org_image.png")
+
+        gray_image = ImageOps.grayscale(org_image)
+        gray_image.save("images/gray_image.png")
+
+        resized_image = gray_image.resize((28, 28))
+        resized_image.save("images/resized_image.png")
+
+        img_data = np.array(resized_image)
+        img_data = (img_data / 255).round()
+
+    return img_data
 
 
 @app.route("/process-image", methods=["POST"])
 def process_image():
     try:
-        data = request.json.get("image")
-        if not data:
+        image_str = request.json.get("image")
+        if not image_str:
             return jsonify({"error": "No image data provided"}), 400
 
-        image_data = base64.b64decode(data.split(",")[1])
-        image = Image.open(io.BytesIO(image_data))
-        # image = image.convert('L') # 'L' mode is grayscale
-        image.save("images/digit.png")
+        img_data = base64_to_img_data(image_str)
 
-        # image = image.resize((28, 28))
-        image_array = np.array(image)
-
-        np.save("img_data", image_array)
-
-        image_array = (image_array @ np.array([0.2989, 0.5870, 0.1140, 0])).round()
-        image_array = image_array / 255
-
-        prediction = model.predict(image_array.reshape(1, 28, 28))
+        prediction = model.predict(img_data.reshape(1, 28, 28))
         digit = prediction.argmax()
         score = prediction.max()
 
-        print("Prediction:", prediction)
-        print(digit, score)
-
         response = {
-            "message": "Image received successfully",
+            "message": "Image analyzed successfully",
             "digit": int(digit),
             "score": float(score),
         }
         return jsonify(response)
     except Exception as e:
+        print(e)
         return jsonify({"error": str(e)}), 500
 
 
