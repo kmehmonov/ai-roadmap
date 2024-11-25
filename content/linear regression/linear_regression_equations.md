@@ -1,4 +1,4 @@
-## Solving Linear Regression
+## Solving Simple Linear Regression
 
 $$
 y_i = a + b \cdot x_i + \varepsilon_i
@@ -188,3 +188,98 @@ C = \begin{bmatrix} 58 & 64 \\ 139 & 154 \end{bmatrix}
 1. Matrices can only be multiplied if the number of columns in the first matrix equals the number of rows in the second matrix.
 2. The resulting matrix will have dimensions that combine the rows of the first matrix with the columns of the second matrix. If \( A \) is \( m \times n \) and \( B \) is \( n \times p \), then \( C = A \cdot B \) will be \( m \times p \).
 3. Each element \( C[i, j] \) is calculated by taking the dot product of the \( i \)-th row of \( A \) with the \( j \)-th column of \( B \).
+
+
+---
+## Solving Multiple Linear Regression
+
+To generalize your linear regression derivation for multiple independent variables (arguments), we extend the model to include \( k \) predictors, represented as \( x_{i,1}, x_{i,2}, \ldots, x_{i,k} \) for each observation \( i \).
+
+
+### 1. Model Definition:
+The linear regression model with \( k \) predictors is:
+$$
+y_i = a + b_1 \cdot x_{i,1} + b_2 \cdot x_{i,2} + \cdots + b_k \cdot x_{i,k} + \varepsilon_i
+$$
+Where:
+- $ a $: Intercept (bias term)
+- $ b_1, b_2, \ldots, b_k $: Coefficients for predictors
+- $ x_{i,j} $: $j$-th predictor for the $ i $-th observation
+- $ \varepsilon_i $: Error term
+
+
+### 2. Predicted Output:
+$$
+\hat{y}_i = a + \sum_{j=1}^k b_j \cdot x_{i,j}
+$$
+
+
+### 3. Cost Function:
+The residual sum of squares (RSS) is minimized:
+$$
+f(a, b_1, b_2, \ldots, b_k) = \sum_{i=1}^n \left[ y_i - \left( a + \sum_{j=1}^k b_j \cdot x_{i,j} \right) \right]^2
+$$
+
+
+### 4. Minimize Cost:
+To find the parameters $ a, b_1, b_2, \ldots, b_k $, take partial derivatives with respect to $ a $ and each $ b_j $, and set them to zero:
+
+$$
+\frac{\partial f}{\partial a} = -2 \sum_{i=1}^n \left[ y_i - \left( a + \sum_{j=1}^k b_j \cdot x_{i,j} \right) \right] = 0
+$$
+
+$$
+\frac{\partial f}{\partial b_j} = -2 \sum_{i=1}^n x_{i,j} \cdot \left[ y_i - \left( a + \sum_{j=1}^k b_j \cdot x_{i,j} \right) \right] = 0 \quad \text{for each } j = 1, 2, \ldots, k
+$$
+
+
+### 5. Solve the System of Equations:
+Rearranging these equations leads to a linear system:
+$$
+\begin{cases}
+\sum_{i=1}^n y_i = n \cdot a + \sum_{j=1}^k b_j \sum_{i=1}^n x_{i,j} \\
+\sum_{i=1}^n y_i \cdot x_{i,j} = a \cdot \sum_{i=1}^n x_{i,j} + \sum_{m=1}^k b_m \sum_{i=1}^n x_{i,j} \cdot x_{i,m} \quad \forall j = 1, \ldots, k
+\end{cases}
+$$
+
+In matrix form:
+
+$$
+\begin{pmatrix}
+n & \sum_{i=1}^n x_{i,1} & \sum_{i=1}^n x_{i,2} & \cdots & \sum_{i=1}^n x_{i,k} \\
+\sum_{i=1}^n x_{i,1} & \sum_{i=1}^n x_{i,1}^2 & \sum_{i=1}^n x_{i,1} x_{i,2} & \cdots & \sum_{i=1}^n x_{i,1} x_{i,k} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+\sum_{i=1}^n x_{i,k} & \sum_{i=1}^n x_{i,k} x_{i,1} & \sum_{i=1}^n x_{i,k} x_{i,2} & \cdots & \sum_{i=1}^n x_{i,k}^2 \end{pmatrix} \cdot 
+\begin{pmatrix}
+a \\
+b_1 \\
+b_2 \\
+\vdots \\
+b_k
+\end{pmatrix} =
+\begin{pmatrix}
+\sum_{i=1}^n y_i \\
+\sum_{i=1}^n y_i \cdot x_{i,1} \\
+\sum_{i=1}^n y_i \cdot x_{i,2} \\
+\vdots \\
+\sum_{i=1}^n y_i \cdot x_{i,k}
+\end{pmatrix}
+$$
+
+
+### 6. Solution Using Matrix Notation:
+Let:
+- $ \mathbf{X} $: $ n \times (k+1) $ design matrix (with $ 1 $ in the first column for the intercept)
+- $ \mathbf{y} $: $ n $-dimensional column vector of outputs
+- $ \mathbf{\beta} = \begin{pmatrix} a & b_1 & \cdots & b_k \end{pmatrix}^T $: Coefficients
+
+The normal equation is:
+$$
+\mathbf{X}^T \mathbf{X} \cdot \mathbf{\beta} = \mathbf{X}^T \mathbf{y}
+$$
+
+Solve for $ \mathbf{\beta} $:
+$$
+\mathbf{\beta} = \left( \mathbf{X}^T \mathbf{X} \right)^{-1} \cdot \mathbf{X}^T \mathbf{y}
+$$
+

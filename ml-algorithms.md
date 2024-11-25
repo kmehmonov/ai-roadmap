@@ -146,6 +146,30 @@ Selects relevant features to improve model performance.
 - **L1 Regularization (Lasso)**: Shrinks coefficients of less important features to zero.
 
 ---
+### Regression Algorithms:
+
+- Linear Regression
+- Polynomial Regression
+- Poisson Regression
+- Ordinary Least Squares (OLS) Regression
+- Ordinal Regression
+- Support Vector Regression
+- Gradient Descent Regression
+- Stepwise Regression
+- Lasso Regression
+- Ridge Regression
+- Elastic Net Regression
+- Bayesian Linear Regression
+- Least-Angled Regression (LARS)
+- Neural Network Regression
+- Locally Estimated Scatterplot Smoothing (LOESS)
+- Multivariate Adaptive Regression Splines (MARS)
+- Locally Weighted Regression (LWL)
+- Quantile Regression
+- Principal Component Regression (PCR)
+- Partial Least Squares Regression
+
+---
 
 ### Machine Learning Algorithms
 ### **1. Supervised Learning Algorithms**
