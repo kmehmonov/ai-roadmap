@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <form action="/eda">
+            <div class="d-flex align-items-end">
+                <div class="mx-3">
+                    <label for="scatter-x-axis" class="form-label">X Axis</label>
+                    <select id="scatter-x-axis" class="form-control axis" name="x">
+                        <option value="SepalLengthCm">SepalLengthCm</option>  
+                        <option value="SepalWidthCm">SepalWidthCm</option>    
+                        <option value="PetalLengthCm">PetalLengthCm</option>      
+                        <option value="PetalWidthCm">PetalWidthCm</option>      
+                    </select>
+                </div>
+                <div class="mx-3">
+                    <label for="scatter-y-axis" class="form-label">Y Axis</label>
+                    <select id="scatter-y-axis" class="form-control axis" name="y">
+                        <option value="SepalWidthCm">SepalWidthCm</option>    
+                        <option value="SepalLengthCm">SepalLengthCm</option>  
+                        <option value="PetalLengthCm">PetalLengthCm</option>      
+                        <option value="PetalWidthCm">PetalWidthCm</option>      
+                    </select>
+                </div>
+                <div class="mx-3">
+                    <input type="submit" value="Show plot" class="btn btn-outline-info">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="scatter_plot" style="width:1000px;height:500px;"></div>
+    <div id="3d_scatter_plot" style="width:1000px;height:800px;"></div>
+{% endblock content %}
+
+{% block script %}
+<script>
+    const data = {{ fig1_json | safe }};
+    Plotly.newPlot('scatter_plot', data, {});
+
+    const data2 = {{ fig2_json | safe }};
+    Plotly.newPlot('3d_scatter_plot', data2, {});
+</script>
+{% endblock script %}
