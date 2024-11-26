@@ -67,7 +67,7 @@ async def identify_iris(features: Feature = Body(), model_type: str = Body()):
 
     # FIXME: ugly code
     if model_type == "log_reg":
-        iris_type = le.inverse_transform(out)[0]
+        out = log_reg.predict(X)
     elif model_type == "svm_clf":
         out = svm_clf.predict(X)
     elif model_type == 'dt_clf':
