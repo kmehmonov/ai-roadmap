@@ -10,11 +10,11 @@
 - **Decision Tree**
 - **Support Vector Machines**
 - **Random Forest**
+- **K-Nearest Neighbour Classification**
 - **K-Fold Cross Validation**
 - **K Means Clustering Algorithm**
 - **Naive Bayes Classifier Algorithm**
 - **L1 and L2 Regularization**
-- **K-Nearest Neighbour Classification**
 - **Principal Component Analysis**
 - **Ensemble Learning**
 - **Outlier Detection**
