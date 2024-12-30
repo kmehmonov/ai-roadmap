@@ -5,7 +5,7 @@
     }
 </style>
 
-# Chapter 1 - What is Machine Learning?
+# What is Machine Learning?
 
 1. Definition and Overview of Machine Learning.
 2. Why use Machine Learning?
