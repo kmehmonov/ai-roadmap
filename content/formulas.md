@@ -77,8 +77,29 @@ $$
 b_1 = \frac{\sum_{i=1}^{n} (x_i - \bar{X})(y_i - \bar{Y})}{\sum_{i=1}^{n} (x_i - \bar{X})^2} = \frac{\text{Cov}(X, Y)}{\text{Var}(X)}
 $$
 
+---
+
 11. **Intercept (\(b_0\)):**
 $$
 b_0 = \bar{Y} - b_1 \bar{X}
 $$
 
+---
+
+12. **L1 norm** of a vector, also known as the **Manhattan norm** or **Taxicab norm**.
+For a vector \( \mathbf{v} = [v_1, v_2, \dots, v_n] \), the L1 norm is given by:
+
+\[
+\|\mathbf{v}\|_1 = |v_1| + |v_2| + \cdots + |v_n|
+\]
+
+---
+
+13. **L2 norm** of a vector, also called the **Euclidean norm**.
+For a vector \( \mathbf{v} = [v_1, v_2, \dots, v_n] \), the L2 norm is calculated as:
+
+$$
+\|\mathbf{v}\|_2 = \sqrt{v_1^2 + v_2^2 + \cdots + v_n^2}
+$$
+
+---

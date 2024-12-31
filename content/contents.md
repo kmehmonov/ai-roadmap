@@ -8,7 +8,7 @@
     3. Simple Linear Regression
     4. Multiple Linear Regression
     5. Gradient Descent
-    6. l1 and l2 regularization
+    6. Regularization
     7. Logistic Regression
     8. K-Fold Cross Validation
     9. Naive Bayes
