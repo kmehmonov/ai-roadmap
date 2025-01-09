@@ -1,12 +1,11 @@
 # ai-roadmap
 
-
 ---
 
 ## Mathematics
 
 ### 1. **Linear Algebra**
-   - **Core Concepts**: 
+   - **Core Concepts**:
      - Vectors, matrices, and tensors
      - Matrix operations (addition, multiplication, transposition, inverse)
      - Eigenvalues and eigenvectors
