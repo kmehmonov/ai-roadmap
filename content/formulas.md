@@ -231,4 +231,172 @@ $$
 ---
 
 
+Below is a comprehensive list of commonly used **Machine Learning** and **Deep Learning loss functions** along with their formulas. These are grouped into categories based on the type of problem they address:
+
+
+## **1. Regression Loss Functions**
+Used for problems where the target is continuous.
+
+### a. **Mean Squared Error (MSE):**
+\[
+\text{MSE} = \frac{1}{N} \sum_{i=1}^N \left( y_i - \hat{y}_i \right)^2
+\]
+- \( y_i \): True value.
+- \( \hat{y}_i \): Predicted value.
+- \( N \): Number of samples.
+
+### b. **Mean Absolute Error (MAE):**
+\[
+\text{MAE} = \frac{1}{N} \sum_{i=1}^N \left| y_i - \hat{y}_i \right|
+\]
+
+### c. **Huber Loss:**
+\[
+L = \begin{cases} 
+\frac{1}{2} \left( y_i - \hat{y}_i \right)^2 & \text{if } \left| y_i - \hat{y}_i \right| \leq \delta \\
+\delta \left| y_i - \hat{y}_i \right| - \frac{1}{2} \delta^2 & \text{if } \left| y_i - \hat{y}_i \right| > \delta 
+\end{cases}
+\]
+- Combines MSE and MAE for robustness to outliers.
+
+### d. **Log-Cosh Loss:**
+\[
+L = \sum_{i=1}^N \log \left( \cosh \left( y_i - \hat{y}_i \right) \right)
+\]
+- Less sensitive to outliers than MSE.
+
+### e. **Quantile Loss:**
+\[
+L = \sum_{i=1}^N \max \left( q \cdot (y_i - \hat{y}_i), (q-1) \cdot (y_i - \hat{y}_i) \right)
+\]
+- \( q \): Quantile to be predicted (e.g., 0.5 for median).
+
+---
+
+## **2. Classification Loss Functions**
+Used for problems where the target is categorical.
+
+### a. **Binary Cross-Entropy (Log Loss):**
+\[
+\text{BCE} = -\frac{1}{N} \sum_{i=1}^N \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
+\]
+- For binary classification tasks.
+
+### b. **Categorical Cross-Entropy:**
+\[
+\text{CCE} = -\frac{1}{N} \sum_{i=1}^N \sum_{j=1}^C y_{ij} \log(\hat{y}_{ij})
+\]
+- \( C \): Number of classes.
+- Used for multi-class classification.
+
+### c. **Hinge Loss:**
+\[
+L = \frac{1}{N} \sum_{i=1}^N \max \left( 0, 1 - y_i \hat{y}_i \right)
+\]
+- Used for SVMs and margin-based classifiers.
+
+### d. **Kullback-Leibler (KL) Divergence:**
+\[
+\text{KL}(P \| Q) = \sum_{i=1}^N P(x_i) \log \frac{P(x_i)}{Q(x_i)}
+\]
+- Measures the difference between two probability distributions.
+
+---
+
+## **3. Ranking Loss Functions**
+Used for ranking tasks (e.g., information retrieval).
+
+### a. **Hinge Ranking Loss:**
+\[
+L = \max(0, 1 - s_{y_i} + s_{y_j})
+\]
+- \( s_{y_i} \): Score for a positive instance.
+- \( s_{y_j} \): Score for a negative instance.
+
+### b. **Contrastive Loss:**
+\[
+L = \frac{1}{2N} \sum_{i=1}^N \left[ y_i \cdot D^2 + (1 - y_i) \cdot \max(0, \text{margin} - D)^2 \right]
+\]
+- \( D \): Distance between pairs of embeddings.
+
+---
+
+## **4. Probabilistic Loss Functions**
+Used for probabilistic models.
+
+### a. **Negative Log Likelihood (NLL):**
+\[
+L = -\frac{1}{N} \sum_{i=1}^N \log(P(y_i | \hat{y}_i))
+\]
+
+### b. **Poisson Loss:**
+\[
+L = \frac{1}{N} \sum_{i=1}^N \left( \hat{y}_i - y_i \log(\hat{y}_i) \right)
+\]
+
+---
+
+## **5. Custom Loss Functions for Neural Networks**
+Used for specific tasks or architectures.
+
+### a. **Dice Loss:**
+\[
+L = 1 - \frac{2 \cdot |X \cap Y|}{|X| + |Y|}
+\]
+- Commonly used in image segmentation.
+
+### b. **IoU (Intersection over Union) Loss:**
+\[
+L = 1 - \frac{\text{Intersection}}{\text{Union}}
+\]
+
+### c. **Focal Loss:**
+\[
+L = -\frac{1}{N} \sum_{i=1}^N \alpha (1 - \hat{y}_i)^\gamma \log(\hat{y}_i)
+\]
+- \( \gamma \): Focusing parameter to down-weight easy examples.
+
+---
+
+## **6. Generative Model Loss Functions**
+Used in GANs and VAEs.
+
+### a. **Adversarial Loss (GANs):**
+\[
+L = \mathbb{E}[\log(D(x))] + \mathbb{E}[\log(1 - D(G(z)))]
+\]
+
+### b. **Reconstruction Loss (VAEs):**
+\[
+L = \|x - \hat{x}\|^2 + \text{KL}(q(z|x) \| p(z))
+\]
+
+---
+
+## **7. Reinforcement Learning Loss Functions**
+Used for policy optimization.
+
+### a. **Policy Gradient Loss:**
+\[
+L = -\mathbb{E}[\log \pi(a|s) \cdot R]
+\]
+- \( R \): Reward.
+
+### b. **Temporal Difference (TD) Loss:**
+\[
+L = \left( R + \gamma V(s') - V(s) \right)^2
+\]
+
+---
+
+## Summary Table:
+| **Category**         | **Loss Function**               | **Formula**                           |
+|-----------------------|---------------------------------|---------------------------------------|
+| Regression            | MSE, MAE, Huber, Log-Cosh      | Handles continuous targets.           |
+| Classification        | BCE, CCE, Hinge, KL Divergence | Handles categorical targets.          |
+| Ranking               | Hinge Ranking, Contrastive     | For ranking/retrieval tasks.          |
+| Probabilistic         | NLL, Poisson                  | Probabilistic models.                 |
+| Custom (Neural Nets)  | Dice, IoU, Focal              | Specific neural net tasks.            |
+| Generative Models     | Adversarial, Reconstruction    | GANs and VAEs.                        |
+| Reinforcement Learning| Policy Gradient, TD           | For RL optimization.                  |
 

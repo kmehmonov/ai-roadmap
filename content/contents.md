@@ -19,6 +19,9 @@
 - Unsupervised:
     14. Clustering
 
+### Deep Learning
+...
+
 Projects:
 1. ageron_end_to_end
 2. digit_recognize
