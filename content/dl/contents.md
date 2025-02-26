@@ -1,9 +1,11 @@
 **Deep Learning Contents:**
 1. Introduction to Deep Learning. What is Neural Networks?
 2. Implement Regression and Classification tasks using Tensorflow, Keras and PyTorch.(High Level)
-3. Implementing Neural Netwoorks with NumPy. (and PyTorch tensors)
+3. Implementing Neural Networks with NumPy. (and PyTorch tensors)
+3. Backpropagation
 4. Deep dive into Activation Functions. (With articles)
 5. Deep dive into Loss Functions. (With articles)
+Normalization
 6. PyTorch Core module: Tensor operations.
 7. Pytorch NN module.
 8. Pytorch Dataset and DataLoader.

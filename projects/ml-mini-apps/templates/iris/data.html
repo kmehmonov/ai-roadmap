@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="mt-2 row">
+        <div class="col-6">
+            <input id="search" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <div class="col-6 d-flex">
+            <p class="me-3 fw-bold text-info">Species</p>
+            {% for specie in species %}
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input species-checkbox" type="checkbox" value="{{ specie }}" id="specie-{{ specie }}" checked>
+                    <label class="form-check-label" for="specie-{{ specie }}">
+                        {{ specie }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="d-flex">
+        <p class="me-3 fw-bold text-info">Show Columns</p>
+        {% for column in columns %}
+        <div class="form-check form-check-inline">
+            <input class="form-check-input column-checkbox" type="checkbox" value="{{ column }}" id="column-{{ column }}" checked>
+            <label class="form-check-label" for="column-{{ column }}">
+                {{ column }}
+            </label>
+        </div>
+        {% endfor %}
+    </div>
+    <table id="main-table" class="table table-striped mt-2">
+    </table>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script>
+$(function() {
+    let data = [];
+    const filters = {
+        columns: ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm', 'Species'],
+        species: ['Iris-setosa', 'Iris-virginica', 'Iris-versicolor'],
+        search: ""
+    };
+
+    const apiUrl = 'http://127.0.0.1:8000/api/data';
+    fetchData(apiUrl).then(respData => {
+        data = respData.data;
+        //filters.columns = respData.columns;
+
+        build_table(data, filters);
+    });
+
+    function build_table(data, filters) {
+        let columns = filters.columns;
+        let species = filters.species;
+        let search = filters.search;
+        
+        let filteredData = data.filter(obj => {
+            return Object.values(obj).some(value => {
+                return value.toString().toLowerCase().includes(search.trim().toLowerCase());
+            });
+        });
+
+        if (columns.includes('Species')) {
+            filteredData = filteredData.filter(obj => {
+                return species.includes(obj.Species);
+            });
+        };
+
+        const table = $('#main-table');
+        
+        let thead = `<thead><tr>`;
+        columns.forEach(col => {
+            thead += `<th>${col}</th>`;
+        });
+        thead += `</tr></thead>`;
+        
+        let tbody = `<tbody>`;
+        filteredData.forEach(row => {
+            let oneRow = `<tr>`;
+            columns.forEach(col => {
+                oneRow += `<td>${row[col]}</td>`
+            });
+            oneRow += `</tr>`;
+
+            tbody += oneRow;
+        });
+        tbody += `</tbody>`;
+        table.html(thead + tbody);
+    };
+
+    $('#search').on('input', function (event) {
+        filters.search = this.value;
+        build_table(data, filters);
+    });
+
+    $('.column-checkbox').on('change', function() {
+        const columns = [];
+        $('.column-checkbox').each(function() {
+            if (this.checked) {
+                columns.push(this.value);
+            }
+        });
+        filters.columns = columns;
+        build_table(data, filters);
+    });
+
+    $('.species-checkbox').on('change', function() {
+        const species = [];
+        $('.species-checkbox').each(function() {
+            if (this.checked) {
+                species.push(this.value);
+            }
+        });
+        filters.species = species;
+        build_table(data, filters);
+    });
+    
+    
+});
+</script>
+{% endblock script %}

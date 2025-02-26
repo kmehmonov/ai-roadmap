@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <form class="form-control mt-2" id="form">
+                    <h3 class="text-center text-primary">Enter Iris Properties</h3>
+                    <fieldset>
+                        <legend>Sepal</legend>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="sepal_width">Sepal Width</label>
+                                <input
+                                        type="number"
+                                    class="form-control"
+                                    id="sepal_width"
+                                    name="sepal_width"
+                                    placeholder="Sepal Width"
+                                    value="1"
+                                    min="0"
+                                    max="20"
+                                    step="0.01"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <label for="sepal_length">Sepal Length</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                        id="sepal_length"
+                                        name="sepal_length"
+                                        placeholder="Sepal Height"
+                                        value="1"
+                                        min="0"
+                                        max="20"
+                                        step="0.01"
+                                    />
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="mt-1">
+                        <div class="row">
+                            <legend>Petal</legend>
+                            <div class="col-6">
+                                <label for="petal_width">Petal Width</label>
+                        <input
+                        type="number"
+                        class="form-control"
+                        id="petal_width"
+                            name="petal_width"
+                            placeholder="Petal Width"
+                            value="1"
+                            min="0"
+                            max="20"
+                            step="0.01"
+                            />
+                        </div>
+                        <div class="col-6">
+                            <label for="petal_length">Petal Length</label>
+                            <input
+                            type="number"
+                            class="form-control"
+                            id="petal_length"
+                            name="petal_length"
+                            placeholder="Petal Height"
+                            value="1"
+                            min="0"
+                            max="20"
+                            step="0.01"
+                            />
+                        </div>
+                    </div>
+                    </fieldset>
+                    <fieldset class="mt-2">
+                        <label>Model Type</label>
+                        <select id="model-type" class="form-control">
+                            <option value="log_reg">Logistic Regression</option>
+                            <option value="svm_clf">SVC</option>
+                            <option value="dt_clf">Decision Tree Classifier</option>
+                        </select>
+                    </fieldset>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                        <button id="btn-clear" type="button" class="btn btn-outline-warning">Clear Output</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4 mt-2">
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <noscript>
+        <h3 class="text-center text-primary mt-2">Output</h3>
+        <p>
+            Iris type is <span id="iris_type" class="text-info fw-bold"></span>.
+        </p>
+        <p>
+            Probability: <span id="prob"></span>
+        </p>
+        <!-- <div>
+          <img width="250" height="250" id="iris_img" />
+        </div> -->
+
+    </noscript>
+{% endblock content %}
+
+{% block script %}
+    <script>
+      $(function () {
+        const form = $('#form');
+        form.find('[type="submit"]').on('click', (event) => {
+          event.preventDefault();
+          const sepal_width = form.find('[name="sepal_width"]').val();
+          const sepal_length = form.find('[name="sepal_length"]').val();
+          const petal_width = form.find('[name="petal_width"]').val();
+          const petal_length = form.find('[name="petal_length"]').val();
+          const result = $($('noscript').html());
+          const model_type = $('#model-type').val();
+
+          fetch('/iris/predict', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                features: {
+                    sepal_width: sepal_width,
+                    sepal_length: sepal_length,
+                    petal_width: petal_width,
+                    petal_length: petal_length,
+                },
+                model_type: model_type,
+            }),
+          })
+            .then((res) => {
+              return res.json();
+            })
+            .then((data) => {
+              result.find('#iris_type').text(data.iris_type);
+              result.find('#prob').text(data.probability);
+              $('#result').html(result);
+            });
+        });
+
+        $('#btn-clear').on('click', (event) => {
+            $('#result').html('');
+        });
+
+      });
+    </script>
+{% endblock script %}

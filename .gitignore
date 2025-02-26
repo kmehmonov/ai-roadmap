@@ -3,8 +3,17 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
+# Models (because of size issue)
 *.so
+*.pth
+*.pkl
+*.joblib
+
+*.tar
+*.tar.gz
+
+# C extensions
+
 
 # Distribution / packaging
 .Python

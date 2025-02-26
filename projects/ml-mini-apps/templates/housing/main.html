@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center">{{ app_name }}</h1>
+
+        <form action="" method="post" class="mt-4">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="median_income" class="form-label">Median Income (in $10,000s):</label>
+                    <input type="number" step="any" name="median_income" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="housing_median_age" class="form-label">Housing Median Age:</label>
+                    <input type="number" step="any" name="housing_median_age" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="total_rooms" class="form-label">Total Rooms:</label>
+                    <input type="number" step="any" name="total_rooms" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="total_bedrooms" class="form-label">Total Bedrooms:</label>
+                    <input type="number" step="any" name="total_bedrooms" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="population" class="form-label">Population:</label>
+                    <input type="number" step="any" name="population" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="households" class="form-label">Households:</label>
+                    <input type="number" step="any" name="households" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="latitude" class="form-label">Latitude:</label>
+                    <input type="number" step="any" name="latitude" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="longitude" class="form-label">Longitude:</label>
+                    <input type="number" step="any" name="longitude" class="form-control" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3 w-100">Predict</button>
+        </form>
+
+        {% if prediction is not none %}
+        <div class="alert alert-success mt-4">
+            <h4>Predicted Median House Value: <strong>${{ prediction }}</strong></h4>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock content %}
+
