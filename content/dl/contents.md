@@ -10,6 +10,7 @@ Normalization
 7. Pytorch NN module.
 8. Pytorch Dataset and DataLoader.
 
+
 Language Modelling
 9. makemore: Bigram Language Model. (With article). Implement with and without PyTorch.
     Introduction to Word Embeddings
@@ -33,7 +34,7 @@ Language Modelling
 
 
 
-# **Deep Learning Roadmap**  
+# **Deep Learning Roadmap** 
 
 ## **1. Introduction to Deep Learning**  
 - What is Deep Learning?  
