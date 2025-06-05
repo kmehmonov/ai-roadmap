@@ -2,6 +2,41 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from data import NamesDataset
+from torch.utils.data import DataLoader
+
+ds = NamesDataset()
+dl = DataLoader(ds, batch_size=32, shuffle=True)
+
+class RNN(nn.Module):
+    def __init__(self, config: dict):
+        super().__init__()
+        self.config = config
+        self.emb = nn.Embedding(config['vocab_size'], config['n_embd'])
+        self.rnn = nn.RNN(config['n_embd'], config['n_hidden'], batch_first=True, num_layers=2)
+        self.lm_head = nn.Linear(config['n_hidden'], config['vocab_size'])
+
+    def forward(self, x):
+        x = self.emb(x)
+        context, out = self.rnn(x)
+        x = self.lm_head(context)
+        return x
+
+rnn = RNN(config={'vocab_size':27, 'context_size': 4, 'n_hidden': 50, 'n_embd': 16})
+optimizer = torch.optim.SGD(rnn.parameters(), lr=0.01)
+
+for epoch in range(10):
+    tloss = 0
+    for X, Y in dl:
+        logits = rnn(X)
+        B, T, C = logits.shape
+        loss = F.cross_entropy(logits.view(B*T, C), Y.view(B*T))
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        tloss += loss.item()
+    print(f"{tloss/len(dl):.3f}")
+
 
 class MLP(nn.Module):
     """
@@ -68,5 +103,3 @@ class Bigram(nn.Module):
         loss = None
         if targets is not None:
             loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=-1)
-
-    

@@ -1,4 +1,5 @@
 const canvas = document.getElementById('canvas');
+const choice = document.getElementById('model-choice');
 
 ctx = canvas.getContext('2d');
 document.width = window.innerWidth;
@@ -33,7 +34,7 @@ canvas.addEventListener('mouseout', () => (isDrawing = false));
 // Configure pen properties
 ctx.lineWidth = 15; // Pen width
 ctx.lineCap = 'round'; // Smooth edges
-ctx.strokeStyle = 'white'; // Pen color
+ctx.strokeStyle = 'black'; // Pen color
 
 // Function to get base64 image data
 function getImageData() {
@@ -54,7 +55,6 @@ function sendImageData() {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log('Response from server:', data);
       document.getElementById('digit').innerHTML = data.digit;
       document.getElementById('score').innerHTML = `${data.score.toFixed(2)} %`;
     })
